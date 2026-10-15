@@ -88,10 +88,7 @@ class EInvoiceImport(models.Model):
         readonly=True,
     )
 
-    # -------------------------------------------------------------------------
     # Public action
-    # -------------------------------------------------------------------------
-
     def action_parse_xml(self):
         self.ensure_one()
 
@@ -171,10 +168,7 @@ class EInvoiceImport(models.Model):
         if self.status == 'parsed':
             self.status = 'ready_for_validation'
 
-    # -------------------------------------------------------------------------
     # XML parsing helpers
-    # -------------------------------------------------------------------------
-
     def _detect_namespaces(self, root):
         tag = root.tag
         if tag.startswith('{'):
@@ -301,10 +295,7 @@ class EInvoiceImport(models.Model):
             iban = self._find_text(header, 'IBAN', ns)
         return iban
 
-    # -------------------------------------------------------------------------
     # Duplicate detection
-    # -------------------------------------------------------------------------
-
     def _check_duplicate(self):
         self.ensure_one()
 
@@ -367,10 +358,7 @@ class EInvoiceImport(models.Model):
 
         return False
 
-    # -------------------------------------------------------------------------
     # Supplier matching
-    # -------------------------------------------------------------------------
-
     def _match_supplier(self):
         self.ensure_one()
 
@@ -469,10 +457,7 @@ class EInvoiceImport(models.Model):
         )
         self.write({'supplier_id': supplier.id})
 
-    # -------------------------------------------------------------------------
     # Data export helper — called to build the vendor bill
-    # -------------------------------------------------------------------------
-
     def prepare_invoice_data(self):
         self.ensure_one()
 
@@ -510,10 +495,7 @@ class EInvoiceImport(models.Model):
             'lines': lines,
         }
 
-    # -------------------------------------------------------------------------
     # Display name
-    # -------------------------------------------------------------------------
-
     def _compute_display_name(self):
         for record in self:
             record.display_name = (
